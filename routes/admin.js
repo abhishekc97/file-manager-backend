@@ -32,7 +32,7 @@ route.post("/createPin", async function(req, res, next) {
 })
 
 // verify pin entered by user
-route.get("/verifyPin", async function( req, res, next) {
+route.post("/verifyPin", async function( req, res, next) {
     try {
         const inputPin = req.body.pin;
         if(!inputPin) res.status(400).send("Bad request, check given parameters");
@@ -71,5 +71,32 @@ route.get("/pinStatus", async function(req, res, next) {
         next(error);
     }
 });
+
+// modify an existing pin
+route.post("/changePin", async function(req, res, next) {
+    try {
+        const inputPin = req.body.pin;
+        if(!inputPin) res.status(400).send("Bad request, check given parameters");
+
+        const newPin = {
+            pin: inputPin,
+        };
+
+        const results = await LockPin.find({});
+        console.log(results);
+        console.log(results._id);
+        console.log(results.length);
+
+        if(results.length === 1) {
+            await LockPin.updateOne( {$set: {pin: inputPin}} );
+            res.status(200).send("Pin updated");
+        } else {
+            res.status(409).send("Bad request, could not update pin.");
+        }
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+} )
 
 module.exports = route;
