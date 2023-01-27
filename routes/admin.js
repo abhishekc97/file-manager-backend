@@ -18,7 +18,7 @@ route.post("/createPin", async function(req, res, next) {
 
         if(results.length === 0) {
             LockPin.create(newPin);
-            res.send("New pin created")
+            res.status(200).send("New pin created")
             console.log("New pin created");
             
         } else {
@@ -35,7 +35,7 @@ route.post("/createPin", async function(req, res, next) {
 route.get("/verifyPin", async function( req, res, next) {
     try {
         const inputPin = req.body.pin;
-        if(!inputPin) res.status(400).send("Bad request, checl given parameters");
+        if(!inputPin) res.status(400).send("Bad request, check given parameters");
 
         const results = await LockPin.find({ pin : inputPin});
         console.log(results.length);
@@ -44,7 +44,7 @@ route.get("/verifyPin", async function( req, res, next) {
             console.log("pin verified");
             res.status(200).send("Pin Verification successful");
         } else {
-            res.send("Pin could not be verified")
+            res.status(401).send("Pin could not be verified");
         }
 
     } catch (error) {
@@ -61,9 +61,9 @@ route.get("/pinStatus", async function(req, res, next) {
 
         if(results.length !== 0) {
             console.log("pin exists");
-            res.send("pin exists");
+            res.status(200).send("Pin exists");
         } else {
-            res.send("Pin does not exist");
+            res.status(404).send("Pin does not exist");
         }
 
     } catch (error) {
