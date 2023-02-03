@@ -26,8 +26,13 @@ app.get("/api/health", function(req, res) {
     res.send(`Backend server is active as of time: ${new Date()}`)
 });
 
+/** Admin route. Provides API's to create pin, verify pin, check pin availability status, update pin */
 const admin = require("./routes/admin");
 app.use("/api/admin", admin);
+
+/** Operations route. provides API's to create folder, create file and update file contents */
+const operations = require("./routes/operations");
+app.use("/api/operations", operations);
 
 
 /** DO NOT WRITE ANY REGULAR API BELOW THIS */
