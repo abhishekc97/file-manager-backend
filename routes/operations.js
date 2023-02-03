@@ -78,10 +78,10 @@ route.post("/editFileContent", async function (req, res, next) {
         // if(!fileName) res.status(400).send("Bad request, check given parameters");
 
         const fileContents = req.body.contents;
-        console.log(fileContents);
+        // console.log(fileContents);
 
         const fileFound = await File.findOne({ _id: fileId });
-        console.log(fileFound);
+        // console.log(fileFound);
 
         if (fileFound) {
             await File.updateOne(
