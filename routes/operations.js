@@ -81,7 +81,7 @@ route.post("/editFileContent", async function (req, res, next) {
         console.log(fileContents);
 
         const fileFound = await File.findOne({ _id: fileId });
-        // console.log(fileFound);
+        console.log(fileFound);
 
         if (fileFound) {
             await File.updateOne(
@@ -89,10 +89,10 @@ route.post("/editFileContent", async function (req, res, next) {
                 { $set: { contents: fileContents } }
             );
             console.log("Updated the file contents");
-            res.send("Updated the file contents");
+            // res.send("Updated the file contents");
         } else {
             console.log("could not find file to update contents");
-            res.send("could not find file to update contents");
+            // res.send("could not find file to update contents");
         }
     } catch (error) {
         console.log(error);
