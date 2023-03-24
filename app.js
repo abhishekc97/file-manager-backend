@@ -9,21 +9,21 @@ const host = process.env.HOST || "localhost";
 
 const app = express();
 app.use(express.json());
-app.use(express.urlencoded( { extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 initializeDatabase();
 
-app.listen(port, function(req, res) {
-    console.log(`Express server started at https://${host}:${port}`);
+app.listen(port, function (req, res) {
+    console.log(`Express server started at http://${host}:${port}`);
 });
 
-app.get("/", function(req, res) {
+app.get("/", function (req, res) {
     res.send("App started");
 });
 
-app.get("/api/health", function(req, res) {
-    res.send(`Backend server is active as of time: ${new Date()}`)
+app.get("/api/health", function (req, res) {
+    res.send(`Backend server is active as of time: ${new Date()}`);
 });
 
 /** Admin route. Provides API's to create pin, verify pin, check pin availability status, update pin */
@@ -33,7 +33,6 @@ app.use("/api/admin", admin);
 /** Operations route. provides API's to create folder, create file and update file contents */
 const operations = require("./routes/operations");
 app.use("/api/operations", operations);
-
 
 /** DO NOT WRITE ANY REGULAR API BELOW THIS */
 
